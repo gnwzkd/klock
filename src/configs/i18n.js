@@ -11,7 +11,10 @@ const i18n = {
     'close': '关闭',
     'dayTemp': '日间气温',
     'nightTemp': '夜间气温',
-    'humidity': '湿度'
+    'humidity': '湿度',
+    'tempUnit': '温度单位',
+    'metric': '公制，摄氏度 (°C)',
+    'imperial': '英制，华氏度 (°F)'
   },
   'en-US': {
     'settings': 'Settings',
@@ -23,7 +26,10 @@ const i18n = {
     'close': 'Close',
     'dayTemp': 'Daytime temperature',
     'nightTemp': 'Night temperature',
-    'humidity': 'Humidity'
+    'humidity': 'Humidity',
+    'tempUnit': 'Temperature unit',
+    'metric': 'Metric (°C)',
+    'imperial': 'Imperial (°F)'
   }
 }
 

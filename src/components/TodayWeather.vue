@@ -6,7 +6,7 @@
     <div class="current-weather">
       <img :src="`/static/images/weather_${data.weather || 'na'}.png`" alt="weather icon" class="weather">
       <span class="temprature">{{ data.currentTemp }}</span>
-      <span class="unit">°C</span>
+      <span class="unit">°{{ ({ 'metric': 'C', 'imperial': 'F' })[$store.state.settings.tempUnit] }}</span>
     </div>
     <div class="others">
       <div class="weather-desc">

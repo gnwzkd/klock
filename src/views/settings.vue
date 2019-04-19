@@ -20,14 +20,22 @@
           <mu-list-item-sub-title>{{ options.language[$store.state.settings.language].name }}</mu-list-item-sub-title>
         </mu-list-item-content>
       </mu-list-item>
+      <mu-list-item button @click="openDialog('tempUnit')">
+        <mu-list-item-content>
+          <mu-list-item-title>{{ i18nMap.tempUnit }}</mu-list-item-title>
+          <mu-list-item-sub-title>{{ options.tempUnit[$store.state.settings.tempUnit].name }}</mu-list-item-sub-title>
+        </mu-list-item-content>
+      </mu-list-item>
     </mu-list>
     <!-- dialogs -->
+    <!-- API Key -->
     <mu-dialog :title="i18nMap.apiKey" scrollable :open.sync="dialogs.apiKey.open">
       <mu-text-field full-width v-model="settings.apiKey" placeholder="OpenWeatherMap API Key" />
       <p v-html="i18nMap.apiKeyDescr"></p>
       <mu-button slot="actions" flat @click="closeDialog('apiKey')">{{ i18nMap.close }}</mu-button>
       <mu-button slot="actions" flat color="primary" @click="saveSetting('apiKey')">{{ i18nMap.save }}</mu-button>
     </mu-dialog>
+    <!-- Language -->
     <mu-dialog :title="i18nMap.language" scrollable :open.sync="dialogs.language.open">
       <mu-list>
         <mu-list-item :key="language.value" v-for="language in options.language">
@@ -38,6 +46,18 @@
       </mu-list>
       <mu-button slot="actions" flat @click="closeDialog('language')">{{ i18nMap.close }}</mu-button>
       <mu-button slot="actions" flat color="primary" @click="saveSetting('language')">{{ i18nMap.save }}</mu-button>
+    </mu-dialog>
+    <!-- Temperature Unit -->
+    <mu-dialog :title="i18nMap.tempUnit" scrollable :open.sync="dialogs.tempUnit.open">
+      <mu-list>
+        <mu-list-item :key="tempUnit.value" v-for="tempUnit in options.tempUnit">
+          <mu-list-item-content>
+            <mu-radio  :label="tempUnit.name" :value="tempUnit.value" v-model="settings.tempUnit"></mu-radio>
+          </mu-list-item-content>
+        </mu-list-item>
+      </mu-list>
+      <mu-button slot="actions" flat @click="closeDialog('tempUnit')">{{ i18nMap.close }}</mu-button>
+      <mu-button slot="actions" flat color="primary" @click="saveSetting('tempUnit')">{{ i18nMap.save }}</mu-button>
     </mu-dialog>
     <!-- /dialogs -->
   </mu-paper>
@@ -60,6 +80,16 @@ export default {
             name: 'English (United States)',
             value: 'en-US'
           }
+        },
+        tempUnit: {
+          'metric': {
+            name: getMap().metric,
+            value: 'metric'
+          },
+          'imperial': {
+            name: getMap().imperial,
+            value: 'imperial'
+          }
         }
       },
       dialogs: {
@@ -67,6 +97,9 @@ export default {
           open: false
         },
         language: {
+          open: false
+        },
+        tempUnit: {
           open: false
         }
       }

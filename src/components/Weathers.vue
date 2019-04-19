@@ -38,7 +38,7 @@ export default {
           q: 'Wuhan,cn',
           appid: this.$store.state.settings.apiKey,
           lang: this.$store.state.settings.language.split('-')[0],
-          units: 'metric'
+          units: this.$store.state.settings.tempUnit
         }
       })
       promise.then(res => {
@@ -46,10 +46,10 @@ export default {
           return
         }
         this.todayWeather = {
-          dayTemp: res.data.main.temp_max,
-          nightTemp: res.data.main.temp_min,
+          dayTemp: Math.round(res.data.main.temp_max),
+          nightTemp: Math.round(res.data.main.temp_min),
           weather: res.data.weather[0].icon,
-          currentTemp: res.data.main.temp,
+          currentTemp: Math.round(res.data.main.temp),
           humidity: res.data.main.humidity,
           weatherDescr: res.data.weather[0].description
         }
@@ -63,7 +63,7 @@ export default {
           q: 'Wuhan,cn',
           appid: this.$store.state.settings.apiKey,
           lang: this.$store.state.settings.language.split('-')[0],
-          units: 'metric',
+          units: this.$store.state.settings.tempUnit,
           cnt: 4
         }
       })
