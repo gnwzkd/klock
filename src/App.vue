@@ -14,4 +14,3 @@ export default {
   font-family: Roboto, 'Noto Sans', 'Noto Sans CJK SC', Arial, Tahoma, sans-serif;
 }
 </style>
-

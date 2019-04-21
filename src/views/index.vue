@@ -18,6 +18,31 @@ export default {
   methods: {
     toSetting() {
       this.$router.push({ path: '/settings' })
+    },
+    switchFullScreen() {
+      const requestFullScreen = _ => {
+        if (this.$el.requestFullscreen) {
+          this.$el.requestFullscreen()
+        } else if (this.$el.webkitRequestFullScreen) {
+          this.$el.webkitRequestFullScreen()
+        } else {
+          this.$el.mozRequestFullScreen()
+        }
+      }
+      const exitFullScreen = _ => {
+        if (document.exitFullscreen) {
+          document.exitFullscreen()
+        } else if (document.webkitExitFullscreen) {
+          document.webkitExitFullscreen()
+        } else {
+          document.mozCancelFullScreen()
+        }
+      }
+      if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
+        exitFullScreen()
+      } else {
+        requestFullScreen()
+      }
     }
   },
   mounted() {
@@ -42,6 +67,7 @@ html {
       color: #fff;
       display: flex;
       flex-direction: row;
+      user-select: none;
       .time-date {
         flex: 3;
       }
