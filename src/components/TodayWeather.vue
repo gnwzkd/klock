@@ -1,7 +1,7 @@
 <template>
   <div class="today-weather">
-    <div class="day-night-temp">
-      {{ i18nMap.dayTemp }}: {{ data.dayTemp }}° ↑ · {{ i18nMap.nightTemp }}: {{ data.nightTemp }}° ↓
+    <div class="max-min-temp">
+      {{ i18nMap.maxTemp }}: {{ data.maxTemp }}° ↑ · {{ i18nMap.minTemp }}: {{ data.minTemp }}° ↓
     </div>
     <div class="current-weather">
       <img :src="`/static/images/weather_${data.weather || 'na'}.png`" alt="weather icon" class="weather">
@@ -19,7 +19,7 @@
   </div>
 </template>
 <script>
-import { getMap } from '@/configs/i18n'
+import { getters } from '@/configs/i18n'
 
 export default {
   name: 'TodayWeather',
@@ -31,7 +31,7 @@ export default {
   },
   computed: {
     i18nMap() {
-      return getMap()
+      return getters.map
     }
   }
 }
@@ -40,9 +40,9 @@ export default {
 .today-weather {
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  .day-night-temp {
-    font-size: 0.2rem;
+  justify-content: space-around;
+  .max-min-temp {
+    font-size: 0.5rem;
     text-align: right;
   }
   .current-weather {
@@ -50,20 +50,20 @@ export default {
     justify-content: center;
     align-items: center;
     .weather {
-      height: 2rem;
+      height: 3rem;
     }
     .temprature {
-      font-size: 1.6rem;
-      line-height: 2rem;
+      font-size: 2.6rem;
+      line-height: 3rem;
     }
     .unit {
-      font-size: .8rem;
-      line-height: 1.4rem;
+      font-size: 1.6rem;
+      line-height: 2.4rem;
       align-self: baseline;
     }
   }
   .others {
-    font-size: 0.2rem;
+    font-size: 0.5rem;
     text-align: center;
     display: flex;
     justify-content: space-evenly;

@@ -9,12 +9,17 @@ const i18n = {
     'dateFormat': 'M 月 D 日 dddd',
     'save': '保存',
     'close': '关闭',
-    'dayTemp': '日间气温',
-    'nightTemp': '夜间气温',
+    'maxTemp': '最高温',
+    'minTemp': '最低温',
     'humidity': '湿度',
     'tempUnit': '温度单位',
     'metric': '公制，摄氏度 (°C)',
-    'imperial': '英制，华氏度 (°F)'
+    'imperial': '英制，华氏度 (°F)',
+    'getWeatherError': (httpCode, apiCode) => {
+      return `获取天气失败，HTTP 状态码: ${httpCode}, API 状态码: ${apiCode}。`
+    },
+    'location': '位置',
+    'geo': '使用定位'
   },
   'en-US': {
     'settings': 'Settings',
@@ -24,19 +29,27 @@ const i18n = {
     'dateFormat': 'MMM Do dddd',
     'save': 'Save',
     'close': 'Close',
-    'dayTemp': 'Daytime temperature',
-    'nightTemp': 'Night temperature',
+    'maxTemp': 'Maximum temperature',
+    'minTemp': 'Minimum temperature',
     'humidity': 'Humidity',
     'tempUnit': 'Temperature unit',
     'metric': 'Metric (°C)',
-    'imperial': 'Imperial (°F)'
+    'imperial': 'Imperial (°F)',
+    'getWeatherError': (httpCode, apiCode) => {
+      return `Get weather failed，HTTP code: ${httpCode}, API code: ${apiCode}.`
+    },
+    'location': 'Location',
+    'geo': 'Geo Location'
   }
 }
 
-function getMap() {
-  return i18n[store.state.settings.language]
-}
+const getters = {}
+Object.defineProperty(getters, 'map', {
+  get() {
+    return i18n[store.state.settings.language]
+  }
+})
 
 export default i18n
 
-export { getMap }
+export { getters }

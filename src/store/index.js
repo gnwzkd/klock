@@ -8,7 +8,8 @@ const store = new Vuex.Store({
     settings: {
       apiKey: '602c6979cdc5738a6e9358add145ba16',
       language: 'zh-CN',
-      tempUnit: 'metric'
+      tempUnit: 'metric',
+      location: 'geo'
     }
   },
   mutations: {

@@ -1,7 +1,20 @@
 <template>
-  <div class="index" @click="toSetting">
-    <TimeDate />
-    <Weathers />
+  <div class="index" @click="actions.show = !actions.show">
+    <div class="main-ui">
+      <TimeDate />
+      <Weathers ref="weathers" />
+    </div>
+    <div class="actions" :class="{ 'show': actions.show }">
+      <mu-button icon @click="switchFullScreen">
+        <mu-icon :value="isFullScreen() ? 'fullscreen_exit' : 'fullscreen'"></mu-icon>
+      </mu-button>
+      <mu-button icon @click="refreshWeather">
+        <mu-icon value="refresh"></mu-icon>
+      </mu-button>
+      <mu-button icon @click="toSetting">
+        <mu-icon value="settings"></mu-icon>
+      </mu-button>
+    </div>
   </div>
 </template>
 <script>
@@ -14,6 +27,13 @@ export default {
   components: {
     TimeDate,
     Weathers
+  },
+  data() {
+    return {
+      actions: {
+        show: false
+      }
+    }
   },
   methods: {
     toSetting() {
@@ -38,13 +58,20 @@ export default {
           document.mozCancelFullScreen()
         }
       }
-      if (document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement) {
+      if (this.isFullScreen()) {
         exitFullScreen()
       } else {
         requestFullScreen()
       }
+    },
+    refreshWeather() {
+      this.$refs.weathers.getWeathers()
+    },
+    isFullScreen() {
+      return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement
     }
   },
+  computed: {},
   mounted() {
     moment.locale(this.$store.state.settings.language)
   }
@@ -52,80 +79,117 @@ export default {
 </script>
 <style lang="less">
 html {
-  width: 100%;
-  height: 100%;
-
   body {
-    width: 100%;
-    height: 100%;
-
     .index {
       position: absolute;
       width: 100%;
       height: 100%;
+      overflow: hidden;
       background-color: #000;
       color: #fff;
-      display: flex;
-      flex-direction: row;
-      user-select: none;
-      .time-date {
-        flex: 3;
+
+      .main-ui {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        display: flex;
+        flex-direction: row;
+        user-select: none;
+        z-index: 1;
+
+        .time-date {
+          flex: 3;
+        }
+
+        .weathers {
+          flex: 7;
+        }
       }
-      .weathers {
-        flex: 7;
+
+      .actions {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        background-color: rgba(0, 0, 0, .7);
+        z-index: 2;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        visibility: hidden;
+        opacity: 0;
+        transition: .3s;
+        transform: scale(2);
+
+        &.show {
+          visibility: visible;
+          opacity: 1;
+          transform: scale(1);
+        }
+
+        .mu-icon-button {
+          width: 2rem;
+          height: 2rem;
+          .mu-icon {
+            font-size: 1.2rem;
+          }
+        }
       }
     }
   }
 
-  @media (min-width: 240px) {
+  @media (min-height: 240px) {
     font-size: 24px;
   }
-  @media (min-width: 320px) {
+  @media (min-height: 320px) {
     font-size: 32px;
   }
-  @media (min-width: 360px) {
+  @media (min-height: 360px) {
     font-size: 36px;
   }
-  @media (min-width: 480px) {
+  @media (min-height: 480px) {
     font-size: 48px;
   }
-  @media (min-width: 640px) {
+  @media (min-height: 640px) {
     font-size: 64px;
   }
-  @media (min-width: 720px) {
+  @media (min-height: 720px) {
     font-size: 72px;
   }
-  @media (min-width: 800px) {
+  @media (min-height: 800px) {
     font-size: 80px;
   }
-  @media (min-width: 840px) {
+  @media (min-height: 840px) {
     font-size: 84px;
   }
-  @media (min-width: 960px) {
+  @media (min-height: 960px) {
     font-size: 96px;
   }
-  @media (min-width: 1024px) {
+  @media (min-height: 1024px) {
     font-size: 102px;
   }
-  @media (min-width: 1080px) {
+  @media (min-height: 1080px) {
     font-size: 108px;
   }
-  @media (min-width: 1200px) {
+  @media (min-height: 1200px) {
     font-size: 120px;
   }
-  @media (min-width: 1280px) {
+  @media (min-height: 1280px) {
     font-size: 128px;
   }
-  @media (min-width: 1400px) {
+  @media (min-height: 1400px) {
     font-size: 140px;
   }
-  @media (min-width: 1440px) {
+  @media (min-height: 1440px) {
     font-size: 144px;
   }
-  @media (min-width: 1600px) {
+  @media (min-height: 1600px) {
     font-size: 160px;
   }
-  @media (min-width: 1680px) {
+  @media (min-height: 1680px) {
     font-size: 168px;
   }
 }
