@@ -4,7 +4,7 @@
       {{ i18nMap.maxTemp }}: {{ data.maxTemp }}° ↑ · {{ i18nMap.minTemp }}: {{ data.minTemp }}° ↓
     </div>
     <div class="current-weather">
-      <img :src="`/static/images/weather_${data.weather || 'na'}.png`" alt="weather icon" class="weather">
+      <img :src="`./static/images/weather_${data.weather || 'na'}.png`" alt="weather icon" class="weather">
       <span class="temprature">{{ data.currentTemp }}</span>
       <span class="unit">°{{ ({ 'metric': 'C', 'imperial': 'F' })[$store.state.settings.tempUnit] }}</span>
     </div>
