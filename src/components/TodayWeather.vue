@@ -12,8 +12,10 @@
       <div class="weather-desc">
         {{ data.weatherDescr }}
       </div>
-      <div class="body-feeling-temp">
-        {{ i18nMap.humidity }}: {{ data.humidity }}%
+      <div class="body-others">
+        {{ i18nMap.humidity }}: {{ data.humidity }}%, 
+        {{ i18nMap.windDeg([data.windDeg]) }}, 
+        {{ i18nMap.windSpeed([data.windSpeed]) }}
       </div>
     </div>
   </div>

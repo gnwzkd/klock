@@ -6,7 +6,7 @@ import settings from '@/views/settings'
 Vue.use(Router)
 
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       path: '/',

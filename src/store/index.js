@@ -9,7 +9,9 @@ const store = new Vuex.Store({
       apiKey: '602c6979cdc5738a6e9358add145ba16',
       language: 'zh-CN',
       tempUnit: 'metric',
-      location: 'geo'
+      useGeoLoc: false,
+      location: 'Beijing, BJ, China',
+      weatherRefreshRate: 'halfHour'
     }
   },
   mutations: {

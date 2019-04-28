@@ -65,7 +65,7 @@ export default {
       }
     },
     refreshWeather() {
-      this.$refs.weathers.getWeathers()
+      this.$refs.weathers.initWeathers()
     },
     isFullScreen() {
       return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement
