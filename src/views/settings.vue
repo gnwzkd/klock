@@ -53,52 +53,114 @@
     <!-- dialogs -->
     <!-- API Key -->
     <mu-dialog :title="i18nMap.apiKey" :open.sync="dialogs.apiKey.open">
-      <mu-text-field full-width v-model="settings.apiKey" placeholder="OpenWeatherMap API Key" />
+      <mu-text-field full-width v-model="settings.apiKey" placeholder="OpenWeatherMap API Key"/>
       <p v-html="i18nMap.apiKeyDescr"></p>
-      <mu-button slot="actions" flat @click="closeDialog('apiKey'); getSettings()">{{ i18nMap.close }}</mu-button>
-      <mu-button slot="actions" flat color="primary" @click="saveSetting(); closeDialog('apiKey')">{{ i18nMap.save }}</mu-button>
+      <mu-button
+        slot="actions"
+        flat
+        @click="closeDialog('apiKey'); getSettings()"
+      >{{ i18nMap.close }}</mu-button>
+      <mu-button
+        slot="actions"
+        flat
+        color="primary"
+        @click="saveSetting(); closeDialog('apiKey')"
+      >{{ i18nMap.save }}</mu-button>
     </mu-dialog>
     <!-- Language -->
     <mu-dialog :title="i18nMap.language" :open.sync="dialogs.language.open">
       <mu-list>
         <mu-list-item :key="language.value" v-for="language in options.language">
           <mu-list-item-content>
-            <mu-radio  :label="language.name" :value="language.value" v-model="settings.language"></mu-radio>
+            <mu-radio :label="language.name" :value="language.value" v-model="settings.language"></mu-radio>
           </mu-list-item-content>
         </mu-list-item>
       </mu-list>
-      <mu-button slot="actions" flat @click="closeDialog('language'); getSettings()">{{ i18nMap.close }}</mu-button>
-      <mu-button slot="actions" flat color="primary" @click="saveSetting(); closeDialog('language')">{{ i18nMap.save }}</mu-button>
+      <mu-button
+        slot="actions"
+        flat
+        @click="closeDialog('language'); getSettings()"
+      >{{ i18nMap.close }}</mu-button>
+      <mu-button
+        slot="actions"
+        flat
+        color="primary"
+        @click="saveSetting(); closeDialog('language')"
+      >{{ i18nMap.save }}</mu-button>
     </mu-dialog>
     <!-- Temperature Unit -->
     <mu-dialog :title="i18nMap.tempUnit" :open.sync="dialogs.tempUnit.open">
       <mu-list>
         <mu-list-item :key="tempUnit.value" v-for="tempUnit in options.tempUnit">
           <mu-list-item-content>
-            <mu-radio  :label="tempUnit.name" :value="tempUnit.value" v-model="settings.tempUnit"></mu-radio>
+            <mu-radio :label="tempUnit.name" :value="tempUnit.value" v-model="settings.tempUnit"></mu-radio>
           </mu-list-item-content>
         </mu-list-item>
       </mu-list>
-      <mu-button slot="actions" flat @click="closeDialog('tempUnit'); getSettings()">{{ i18nMap.close }}</mu-button>
-      <mu-button slot="actions" flat color="primary" @click="saveSetting(); closeDialog('tempUnit')">{{ i18nMap.save }}</mu-button>
+      <mu-button
+        slot="actions"
+        flat
+        @click="closeDialog('tempUnit'); getSettings()"
+      >{{ i18nMap.close }}</mu-button>
+      <mu-button
+        slot="actions"
+        flat
+        color="primary"
+        @click="saveSetting(); closeDialog('tempUnit')"
+      >{{ i18nMap.save }}</mu-button>
     </mu-dialog>
     <!-- Location -->
     <mu-dialog :title="i18nMap.location" :open.sync="dialogs.location.open">
-      <mu-auto-complete :data="locationAutoCompletes" :label="i18nMap.inputCity" v-model="settings.location" @input.native="locationInputed" open-on-focus></mu-auto-complete>
-      <mu-button slot="actions" flat @click="closeDialog('location'); getSettings()">{{ i18nMap.close }}</mu-button>
-      <mu-button slot="actions" flat color="primary" @click="saveSetting(); closeDialog('location')">{{ i18nMap.save }}</mu-button>
+      <mu-auto-complete
+        :data="locationAutoCompletes"
+        :label="i18nMap.inputCity"
+        v-model="settings.location"
+        @input.native="locationInputed"
+        open-on-focus
+      ></mu-auto-complete>
+      <mu-button
+        slot="actions"
+        flat
+        @click="closeDialog('location'); getSettings()"
+      >{{ i18nMap.close }}</mu-button>
+      <mu-button
+        slot="actions"
+        flat
+        color="primary"
+        @click="saveSetting(); closeDialog('location')"
+      >{{ i18nMap.save }}</mu-button>
     </mu-dialog>
     <!-- Weather Refresh Rate -->
-    <mu-dialog :title="i18nMap.weatherRefreshRate" :open.sync="dialogs.weatherRefreshRate.open" scrollable>
+    <mu-dialog
+      :title="i18nMap.weatherRefreshRate"
+      :open.sync="dialogs.weatherRefreshRate.open"
+      scrollable
+    >
       <mu-list>
-        <mu-list-item :key="weatherRefreshRate.value" v-for="weatherRefreshRate in options.weatherRefreshRate">
+        <mu-list-item
+          :key="weatherRefreshRate.value"
+          v-for="weatherRefreshRate in options.weatherRefreshRate"
+        >
           <mu-list-item-content>
-            <mu-radio  :label="weatherRefreshRate.name" :value="weatherRefreshRate.value" v-model="settings.weatherRefreshRate"></mu-radio>
+            <mu-radio
+              :label="weatherRefreshRate.name"
+              :value="weatherRefreshRate.value"
+              v-model="settings.weatherRefreshRate"
+            ></mu-radio>
           </mu-list-item-content>
         </mu-list-item>
       </mu-list>
-      <mu-button slot="actions" flat @click="closeDialog('weatherRefreshRate'); getSettings()">{{ i18nMap.close }}</mu-button>
-      <mu-button slot="actions" flat color="primary" @click="saveSetting(); closeDialog('weatherRefreshRate')">{{ i18nMap.save }}</mu-button>
+      <mu-button
+        slot="actions"
+        flat
+        @click="closeDialog('weatherRefreshRate'); getSettings()"
+      >{{ i18nMap.close }}</mu-button>
+      <mu-button
+        slot="actions"
+        flat
+        color="primary"
+        @click="saveSetting(); closeDialog('weatherRefreshRate')"
+      >{{ i18nMap.save }}</mu-button>
     </mu-dialog>
     <!-- /dialogs -->
   </mu-paper>
@@ -213,25 +275,28 @@ export default {
         if (!this.settings.location) {
           return
         }
-        // 生成回调函数名
-        const callback = `callback_${Date.now()}_${(Math.random() + '').split('.')[1]}`
-        const script = document.createElement('script')
-        window[callback] = res => {
-          this.locationAutoCompletes = res
 
-          // 手动失焦再激活刷新选项
-          e.target.blur()
-          this.$nextTick(_ => {
-            e.target.focus()
+        axios({
+          method: 'POST',
+          url: 'https://ass-we-can.herokuapp.com/autoCompleteCity',
+          params: {
+            q: this.settings.location
+          }
+        })
+          .then(res => {
+            {
+              if (!res.data || !res.data.length) {
+                return
+              }
+              this.locationAutoCompletes = res.data.map(v => `${v.name}, ${v.country}`)
+
+              // 手动失焦再激活以刷新选项
+              e.target.blur()
+              this.$nextTick(_ => {
+                e.target.focus()
+              })
+            }
           })
-          // 完成时移除 script 节点
-          document.body.removeChild(script)
-          // 删除回调变量
-          delete window[callback]
-        }
-        // JSONP 城市搜索
-        script.src = `http://gd.geobytes.com/AutoCompleteCity?q=${this.settings.location}&callback=${callback}&_=${Date.now()}`
-        document.body.appendChild(script)
       }, 500)
     }
   },
