@@ -4,7 +4,7 @@
 
 # 由来
 
-![klock photo](/home/gnwzkd/桌面/klock/docs/klock.jpg)
+![klock photo](./docs/klock.jpg)
 
 很早以前将旧手机改造成桌面时钟的想法，觉得只有时间不够好玩，于是加上了天气。
 
