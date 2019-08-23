@@ -14,46 +14,46 @@
   </div>
 </template>
 <script>
-import moment from 'moment'
-import { getters } from '@/configs/i18n'
-
-let timerId = null
+import moment from 'moment';
+import i18n from '@/configs/i18n';
 
 export default {
   name: 'timeDate',
   data() {
     return {
+      timerId: null,
       hour: '',
       minute: '',
-      date: ''
+      date: '',
     };
   },
   methods: {
     init() {
-      this.getTime()
-      timerId = timerId
-        ? timerId
-        : setInterval(_ => {
-            this.getTime()
-          }, 1000)
+      this.getTime();
+      this.timerId = this.timerId || setInterval(() => {
+        this.getTime();
+      }, 1000);
     },
     deInit() {
-      timerId && clearInterval(timerId)
-      timerId = null
+      if (this.timerId) clearInterval(this.timerId);
+      this.timerId = null;
     },
     getTime() {
-      var date = moment()
-      this.hour = date.format('HH')
-      this.minute = date.format('mm')
-      this.date = date.format(getters.map.dateFormat)
-    }
+      const date = moment();
+      this.hour = date.format('HH');
+      this.minute = date.format('mm');
+      this.date = date.format(i18n.dateFormat);
+    },
+  },
+  computed: {
+    i18n: () => i18n,
   },
   mounted() {
-    this.init()
+    this.init();
   },
   destroyed() {
-    this.deInit()
-  }
+    this.deInit();
+  },
 };
 </script>
 <style lang="less" scoped>

@@ -1,8 +1,8 @@
 <template>
-  <div class="index" @click="actions.show = !actions.show">
+  <div class="index-view" @click="actions.show = !actions.show">
     <div class="main-ui">
-      <TimeDate />
-      <Weathers ref="weathers" />
+      <time-date />
+      <weathers ref="weathers" />
     </div>
     <div class="actions" :class="{ 'show': actions.show }">
       <mu-button icon @click="switchFullScreen">
@@ -15,72 +15,76 @@
         <mu-icon value="settings"></mu-icon>
       </mu-button>
     </div>
+    <burn-in />
   </div>
 </template>
 <script>
-import moment from 'moment'
-import TimeDate from '@/components/TimeDate'
-import Weathers from '@/components/Weathers'
+import moment from 'moment';
+import TimeDate from '@/components/TimeDate.vue';
+import Weathers from '@/components/Weathers.vue';
+import BurnIn from '@/components/BurnIn.vue';
 
 export default {
-  name: 'index',
+  name: 'Index',
   components: {
     TimeDate,
-    Weathers
+    Weathers,
+    BurnIn,
   },
   data() {
     return {
       actions: {
-        show: false
-      }
-    }
+        show: false,
+      },
+    };
   },
   methods: {
     toSetting() {
-      this.$router.push({ path: '/settings' })
+      this.$router.push({ path: '/settings' });
     },
     switchFullScreen() {
-      const requestFullScreen = _ => {
+      const requestFullScreen = () => {
         if (this.$el.requestFullscreen) {
-          this.$el.requestFullscreen()
+          this.$el.requestFullscreen();
         } else if (this.$el.webkitRequestFullScreen) {
-          this.$el.webkitRequestFullScreen()
+          this.$el.webkitRequestFullScreen();
         } else {
-          this.$el.mozRequestFullScreen()
+          this.$el.mozRequestFullScreen();
         }
-      }
-      const exitFullScreen = _ => {
+      };
+      const exitFullScreen = () => {
         if (document.exitFullscreen) {
-          document.exitFullscreen()
+          document.exitFullscreen();
         } else if (document.webkitExitFullscreen) {
-          document.webkitExitFullscreen()
+          document.webkitExitFullscreen();
         } else {
-          document.mozCancelFullScreen()
+          document.mozCancelFullScreen();
         }
-      }
+      };
       if (this.isFullScreen()) {
-        exitFullScreen()
+        exitFullScreen();
       } else {
-        requestFullScreen()
+        requestFullScreen();
       }
     },
     refreshWeather() {
-      this.$refs.weathers.initWeathers()
+      this.$refs.weathers.initWeathers();
     },
     isFullScreen() {
-      return document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement
-    }
+      return document.fullscreenElement
+        || document.webkitFullscreenElement
+        || document.mozFullScreenElement;
+    },
   },
-  computed: {},
   mounted() {
-    moment.locale(this.$store.state.settings.language)
-  }
-}
+    moment.locale(this.$store.state.settings.language);
+  },
+};
 </script>
 <style lang="less">
 html {
   body {
-    .index {
+    .index-view {
       position: absolute;
       width: 100%;
       height: 100%;
@@ -133,6 +137,7 @@ html {
         .mu-icon-button {
           width: 2rem;
           height: 2rem;
+          transition: background-color .3s;
           .mu-icon {
             font-size: 1.2rem;
           }

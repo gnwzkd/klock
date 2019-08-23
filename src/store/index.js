@@ -1,7 +1,7 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
+import Vue from 'vue';
+import Vuex from 'vuex';
 
-Vue.use(Vuex)
+Vue.use(Vuex);
 
 const store = new Vuex.Store({
   state: {
@@ -11,24 +11,29 @@ const store = new Vuex.Store({
       tempUnit: 'metric',
       useGeoLoc: false,
       location: 'Beijing, BJ, China',
-      weatherRefreshRate: 'halfHour'
-    }
+      weatherRefreshRate: 'halfHour',
+      burnInHomogenize: false,
+      burnInTime: '04:00',
+      burnInDuration: 'oneMinute',
+    },
   },
   mutations: {
     // 从 localStorage 获取设置
     loadSettings(state) {
-      const settings = localStorage.getItem('klock_settings') && JSON.parse(localStorage.getItem('klock_settings'))
+      const settings = localStorage.getItem('klock_settings') && JSON.parse(localStorage.getItem('klock_settings'));
       if (settings) {
-        state.settings = settings
+        state.settings = {
+          ...settings,
+        };
       }
     },
     // 从组件接收设置并保存到 localStorage
     saveSettings(state, payload) {
-      const settings = JSON.parse(JSON.stringify(payload))
-      state.settings = settings
-      localStorage.setItem('klock_settings', JSON.stringify(settings))
-    }
-  }
-})
+      const settings = JSON.parse(JSON.stringify(payload));
+      state.settings = settings;
+      localStorage.setItem('klock_settings', JSON.stringify(settings));
+    },
+  },
+});
 
-export default store
+export default store;

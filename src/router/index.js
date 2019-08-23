@@ -1,9 +1,8 @@
-import Vue from 'vue'
-import Router from 'vue-router'
-import index from '@/views/index'
-import settings from '@/views/settings'
+import Vue from 'vue';
+import Router from 'vue-router';
+import Index from '@/views/Index.vue';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   // mode: 'history',
@@ -11,11 +10,11 @@ export default new Router({
     {
       path: '/',
       name: 'index',
-      component: index
+      component: Index,
     }, {
       path: '/settings',
       name: 'settings',
-      component: settings
-    }
-  ]
-})
+      component: () => import('@/views/Settings.vue'),
+    },
+  ],
+});

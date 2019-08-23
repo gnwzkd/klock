@@ -1,42 +1,42 @@
 <template>
   <div class="today-weather">
     <div class="max-min-temp">
-      {{ i18nMap.maxTemp }}: {{ data.maxTemp }}° ↑ · {{ i18nMap.minTemp }}: {{ data.minTemp }}° ↓
+      {{ i18n.maxTemp }}: {{ data.maxTemp }}° ↑ · {{ i18n.minTemp }}: {{ data.minTemp }}° ↓
     </div>
     <div class="current-weather">
-      <img :src="`./static/images/weather_${data.weather || 'na'}.png`" alt="weather icon" class="weather">
+      <img :src="`./images/weather_${data.weather || 'na'}.png`" alt="weather icon" class="weather">
       <span class="temprature">{{ data.currentTemp }}</span>
-      <span class="unit">°{{ ({ 'metric': 'C', 'imperial': 'F' })[$store.state.settings.tempUnit] }}</span>
+      <span class="unit">
+        °{{ ({ 'metric': 'C', 'imperial': 'F' })[$store.state.settings.tempUnit] }}
+        </span>
     </div>
     <div class="others">
       <div class="weather-desc">
         {{ data.weatherDescr }}
       </div>
       <div class="body-others">
-        {{ i18nMap.humidity }}: {{ data.humidity }}%, 
-        {{ i18nMap.windDeg([data.windDeg]) }}, 
-        {{ i18nMap.windSpeed([data.windSpeed]) }}
+        {{ i18n.humidity }}: {{ data.humidity }}%,
+        {{ i18n.windDeg([data.windDeg]) }},
+        {{ i18n.windSpeed([data.windSpeed]) }}
       </div>
     </div>
   </div>
 </template>
 <script>
-import { getters } from '@/configs/i18n'
+import i18n from '@/configs/i18n';
 
 export default {
   name: 'TodayWeather',
   props: {
     data: {
       type: Object,
-      required: true
-    }
+      required: true,
+    },
   },
   computed: {
-    i18nMap() {
-      return getters.map
-    }
-  }
-}
+    i18n: () => i18n,
+  },
+};
 </script>
 <style lang="less" scoped>
 .today-weather {
