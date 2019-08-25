@@ -33,18 +33,23 @@ export default {
       })[settings.burnInDuration];
       const todayEndTime = todayStartTime.clone().add(durationMinute, 'minutes');
 
-      this.timerId = setTimeout(this.setBurnIn, 1000);
-
       if (todayStartTime.isAfter()) {
+        const startLeftTime = todayStartTime.diff(moment());
+        this.timerId = setTimeout(this.setBurnIn, startLeftTime);
         return false;
       }
 
       if (todayStartTime.isBefore() && todayEndTime.isAfter()) {
+        const endLeftTime = todayEndTime.diff(moment());
+        this.timerId = setTimeout(this.setBurnIn, endLeftTime);
         this.show = true;
         return false;
       }
 
       if (todayEndTime.isBefore()) {
+        const tomorrowStartTime = todayStartTime.clone().add(1, 'days');
+        const nextLeftTime = tomorrowStartTime.diff(moment());
+        this.timerId = setTimeout(this.setBurnIn, nextLeftTime);
         this.show = false;
       }
 
